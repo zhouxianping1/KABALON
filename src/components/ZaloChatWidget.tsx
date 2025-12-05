@@ -2,9 +2,14 @@
 
 import { useEffect } from "react";
 
+// 定义 Zalo Social SDK 的类型接口
+interface ZaloSocialSDK {
+  init: () => void;
+}
+
 declare global {
   interface Window {
-    ZaloSocialSDK?: any;
+    ZaloSocialSDK?: ZaloSocialSDK;
   }
 }
 
