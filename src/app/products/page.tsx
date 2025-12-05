@@ -27,34 +27,37 @@ export default function ProductsPage() {
       <section className="grid gap-4 md:grid-cols-3">
         {products.map((product) => (
           <article
-            key={product.id}
+            key={product.slug}
             className="flex flex-col rounded-lg border border-slate-200 bg-white p-4 text-xs shadow-sm"
           >
-            <div className="mb-3 h-32 rounded-md bg-slate-100" />
+            {product.image ? (
+              <div className="mb-3 h-32 w-full overflow-hidden rounded-md bg-slate-100">
+                <img
+                  src={product.image}
+                  alt={product.nameVi}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ) : (
+              <div className="mb-3 h-32 rounded-md bg-slate-100" />
+            )}
             <div className="mb-2 flex items-start justify-between gap-2">
               <div>
                 <h2 className="text-sm font-semibold text-slate-900">
-                  {product.name}
+                  {product.nameVi}
                 </h2>
                 <p className="text-[11px] text-slate-500">
                   Mã: {product.code} • Kích thước: {product.size}
                 </p>
               </div>
-              {product.isBestseller && (
-                <span className="inline-flex rounded-full bg-emerald-50 px-2 py-1 text-[10px] font-medium text-emerald-700">
-                  Bán chạy
-                </span>
-              )}
             </div>
-            <p className="mb-3 text-[11px] text-slate-600">
-              {product.shortDescription}
+            <p className="mb-3 line-clamp-2 text-[11px] text-slate-600">
+              {product.nameVi}
             </p>
             <dl className="mb-4 grid grid-cols-2 gap-2 text-[11px]">
               <div>
                 <dt className="text-slate-500">Vật liệu</dt>
-                <dd className="font-medium text-slate-800">
-                  {product.material}
-                </dd>
+                <dd className="font-medium text-slate-800">Inox 304</dd>
               </div>
               <div>
                 <dt className="text-slate-500">Độ dày</dt>
@@ -63,16 +66,12 @@ export default function ProductsPage() {
                 </dd>
               </div>
               <div>
-                <dt className="text-slate-500">Số hố</dt>
-                <dd className="font-medium text-slate-800">
-                  {product.bowlCount} hố
-                </dd>
+                <dt className="text-slate-500">Màu sắc</dt>
+                <dd className="font-medium text-slate-800">{product.color}</dd>
               </div>
               <div>
-                <dt className="text-slate-500">Lắp đặt</dt>
-                <dd className="font-medium text-slate-800">
-                  {product.installation}
-                </dd>
+                <dt className="text-slate-500">Kích thước</dt>
+                <dd className="font-medium text-slate-800">{product.size}</dd>
               </div>
             </dl>
 
