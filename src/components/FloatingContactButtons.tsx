@@ -2,22 +2,54 @@
 
 export function FloatingContactButtons() {
   return (
-    <div className="pointer-events-none fixed inset-0 z-[100]">
-      {/* 电话按钮 - 左下角 */}
+    <>
+      {/* 电话按钮 - 左下角 - 使用内联样式确保在移动端可见 */}
       <a
         href="tel:0981675008"
         aria-label="Gọi ngay 0981 675 008"
-        className="pointer-events-auto fixed bottom-5 left-5 sm:bottom-6 sm:left-6 z-[101] flex items-center gap-2 group"
+        id="floating-phone-button"
+        className="floating-phone-button"
+        style={{
+          position: 'fixed',
+          bottom: '16px',
+          left: '16px',
+          zIndex: 99998,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          touchAction: 'manipulation',
+          WebkitTapHighlightColor: 'transparent',
+          transform: 'translateZ(0)',
+          WebkitTransform: 'translateZ(0)',
+          visibility: 'visible',
+          opacity: 1,
+        }}
       >
-        {/* 圆形电话图标按钮 */}
-        <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-red-500 text-white shadow-lg transition-all duration-300 hover:bg-red-600 hover:scale-110 group-hover:shadow-xl">
+        {/* 圆形电话图标按钮 - 移动端至少 48x48px 以确保触摸友好 */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '56px',
+            height: '56px',
+            minWidth: '56px',
+            minHeight: '56px',
+            borderRadius: '50%',
+            backgroundColor: '#ef4444',
+            color: 'white',
+            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2)',
+            border: '2px solid white',
+            flexShrink: 0,
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 sm:h-6 sm:w-6"
+            style={{ width: '28px', height: '28px', flexShrink: 0 }}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            strokeWidth={2}
+            strokeWidth={2.5}
           >
             <path
               strokeLinecap="round"
@@ -28,11 +60,11 @@ export function FloatingContactButtons() {
         </div>
         
         {/* 电话号码显示条 - 桌面端显示 */}
-        <div className="hidden sm:flex items-center rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-red-600 group-hover:shadow-xl whitespace-nowrap">
+        <div className="hidden sm:flex items-center rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-red-600 whitespace-nowrap">
           0981 675 008
         </div>
       </a>
-    </div>
+    </>
   );
 }
 
