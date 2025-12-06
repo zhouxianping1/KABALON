@@ -1,4 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import Image from "next/image";
 import { products } from "@/data/products";
 
 export default function ProductsPage() {
@@ -48,12 +50,14 @@ export default function ProductsPage() {
               {product.image ? (
                 <Link
                   href={`/products/${product.slug}`}
-                  className="mb-4 h-48 sm:h-56 w-full overflow-hidden rounded-lg bg-slate-100 group-hover:opacity-90 transition-opacity"
+                  className="mb-4 h-48 sm:h-56 w-full overflow-hidden rounded-lg bg-slate-100 group-hover:opacity-90 transition-opacity relative"
                 >
-                  <img
+                  <Image
                     src={product.image}
                     alt={product.nameVi}
-                    className="h-full w-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                 </Link>
               ) : (

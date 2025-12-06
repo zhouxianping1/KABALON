@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/data/products";
 
@@ -83,11 +84,13 @@ export default async function ProductDetailPage(props: ProductDetailPageProps) {
           <div className="space-y-6">
             <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-6 shadow-md">
               {product.image ? (
-                <div className="w-full overflow-hidden rounded-lg bg-slate-100">
-                  <img
+                <div className="w-full overflow-hidden rounded-lg bg-slate-100 relative aspect-[4/3]">
+                  <Image
                     src={product.image}
                     alt={product.nameVi}
-                    className="w-full h-auto object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 60vw"
                   />
                 </div>
               ) : (

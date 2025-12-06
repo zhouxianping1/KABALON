@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState } from "react";
@@ -25,6 +26,7 @@ export function ProductImage({ src, alt }: ProductImageProps) {
     </div>
   );
 }
+
 
 
 

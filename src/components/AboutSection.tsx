@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function AboutSection() {
   const stats = [
     { value: "100+", label: "Mẫu sản phẩm" },
@@ -11,11 +13,13 @@ export function AboutSection() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left: Image */}
           <div className="order-2 lg:order-1">
-            <div className="rounded-xl overflow-hidden shadow-lg">
-              <img
+            <div className="rounded-xl overflow-hidden shadow-lg relative aspect-[4/3]">
+              <Image
                 src="/jimeng2025.jpg"
                 alt="Nhà máy sản xuất chậu rửa inox"
-                className="w-full h-auto object-cover"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
           </div>

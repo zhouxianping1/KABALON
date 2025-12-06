@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { products } from "@/data/products";
 
 export function ProductShowcase() {
@@ -27,10 +28,12 @@ export function ProductShowcase() {
             >
               <div className="mb-4 h-48 sm:h-56 rounded-lg overflow-hidden bg-slate-100 relative">
                 {product.image ? (
-                  <img
+                  <Image
                     src={product.image}
                     alt={product.nameVi}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-slate-400">

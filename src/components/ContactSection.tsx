@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 export function ContactSection() {
@@ -253,11 +254,13 @@ export function ContactSection() {
                 Liên hệ qua Zalo
               </h3>
               <div className="mb-4 flex justify-center">
-                <div className="w-48 h-48 rounded-xl bg-white p-4 shadow-sm border border-slate-200 flex items-center justify-center overflow-hidden">
-                  <img
+                <div className="w-48 h-48 rounded-xl bg-white p-4 shadow-sm border border-slate-200 flex items-center justify-center overflow-hidden relative">
+                  <Image
                     src="/0fe857a444e1adbff4f0.jpg"
                     alt="Zalo QR Code - 0981 675 008"
-                    className="w-full h-full object-contain"
+                    fill
+                    className="object-contain"
+                    sizes="192px"
                   />
                 </div>
               </div>

@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
-export default function ContactPage() {
+function ContactForm() {
   const searchParams = useSearchParams();
   const initialProduct = searchParams.get("product") ?? "";
 
@@ -391,11 +393,13 @@ export default function ContactPage() {
                 Liên hệ qua Zalo
               </h2>
               <div className="mb-4 flex justify-center">
-                <div className="w-48 h-48 rounded-xl bg-white p-4 shadow-sm border border-slate-200 flex items-center justify-center overflow-hidden">
-                  <img
+                <div className="w-48 h-48 rounded-xl bg-white p-4 shadow-sm border border-slate-200 flex items-center justify-center overflow-hidden relative">
+                  <Image
                     src="/0fe857a444e1adbff4f0.jpg"
                     alt="Zalo QR Code - 0981 675 008"
-                    className="w-full h-full object-contain"
+                    fill
+                    className="object-contain"
+                    sizes="192px"
                   />
                 </div>
               </div>
@@ -441,5 +445,17 @@ export default function ContactPage() {
   );
 }
 
-
+export default function ContactPage() {
+  return (
+    <Suspense fallback={
+      <div className="py-12 sm:py-16 lg:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">Đang tải...</div>
+        </div>
+      </div>
+    }>
+      <ContactForm />
+    </Suspense>
+  );
+}
 
