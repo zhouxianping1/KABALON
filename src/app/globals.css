@@ -36,13 +36,15 @@ li {
   --brand-blue: #0A52A1;
 }
 
-/* 浮动电话按钮样式 - 确保在移动端可见 */
+/* 浮动电话按钮样式 - 确保在移动端可见并与 Zalo 按钮对齐 */
 .floating-phone-button {
   position: fixed !important;
-  bottom: 16px !important;
-  left: 16px !important;
+  bottom: 52px !important; /* 向上移动，与 Zalo 按钮对齐 */
+  /* left: 16px !important; */ /* 向右移动：增加这个值，例如 20px, 24px, 30px 等 */
+  left: 40px !important; /* 当前值：16px，增加此值可向右移动向 Zalo 图标 */
   z-index: 99998 !important;
   display: flex !important;
+  align-items: flex-end !important; /* 确保底部对齐 */
   visibility: visible !important;
   opacity: 1 !important;
   pointer-events: auto !important;
@@ -59,18 +61,30 @@ li {
 
 @media (min-width: 640px) {
   .floating-phone-button {
-    bottom: 24px !important;
-    left: 24px !important;
+    bottom: 55px !important; /* 桌面端也向上移动，与 Zalo 按钮对齐 */
+    /* left: 24px !important; */ /* 向右移动：增加这个值，例如 28px, 32px, 40px 等 */
+    left: 75px !important; /* 当前值：24px，增加此值可向右移动向 Zalo 图标 */
   }
 }
 
-/* Zalo Widget 基础样式 - 交给 SDK 自己控制，只确保可见性和交互性 */
+/* Zalo Widget 基础样式 - 确保与电话按钮对齐 */
 .zalo-chat-widget {
   /* 让 SDK 完全控制样式，不添加强制定位 */
   display: block;
   pointer-events: auto;
   /* 确保移动端触摸友好 */
   touch-action: manipulation;
+  /* 确保底部对齐 */
+  line-height: 0;
+}
+
+/* 确保 Zalo Widget 外层容器与电话按钮垂直对齐 */
+/* 移动端和桌面端都确保按钮底部对齐 */
+.zalo-chat-widget iframe,
+.zalo-chat-widget > div,
+.zalo-chat-widget > div > div {
+  vertical-align: bottom !important;
+  display: block !important;
 }
 
 /* 电话按钮波纹扩散动画 */

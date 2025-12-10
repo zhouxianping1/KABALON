@@ -11,11 +11,11 @@ export function FloatingContactButtons() {
         className="floating-phone-button"
         style={{
           position: 'fixed',
-          bottom: '16px',
+          bottom: '20px', // 向上移动 4px，与 Zalo 按钮对齐（Zalo 按钮通常 60px，电话按钮 56px）
           left: '16px',
           zIndex: 99998,
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-end', // 确保按钮底部对齐
           gap: '8px',
           touchAction: 'manipulation',
           WebkitTapHighlightColor: 'transparent',
