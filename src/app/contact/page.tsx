@@ -115,16 +115,16 @@ function ContactForm() {
         <header className="mb-8 sm:mb-12 text-center sm:text-left">
           <p className="text-sm font-semibold uppercase tracking-wider text-[#0A52A1] mb-2">
             LIÊN HỆ HỢP TÁC
-          </p>
+        </p>
           <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
             Tư vấn & Báo giá chậu rửa inox 304
-          </h1>
+        </h1>
           <p className="text-base text-slate-600 max-w-3xl mx-auto sm:mx-0">
             Vui lòng điền thông tin dưới đây về nhu cầu dự án của bạn (số lượng dự kiến,
             dòng sản phẩm quan tâm, tiến độ triển khai...). Đội ngũ sales kỹ thuật chuyên nghiệp 
             của Thiên Bang sẽ phản hồi trong vòng 24 giờ làm việc và cung cấp báo giá chi tiết.
-          </p>
-        </header>
+        </p>
+      </header>
 
         {/* Success/Error Message */}
         {submitStatus.type && (
@@ -176,132 +176,132 @@ function ContactForm() {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label
-                    htmlFor="company"
+                <label
+                  htmlFor="company"
                     className="block text-sm font-medium text-slate-700 mb-2"
-                  >
-                    Tên công ty / đơn vị *
-                  </label>
-                  <input
-                    id="company"
-                    name="company"
+                >
+                  Tên công ty / đơn vị *
+                </label>
+                <input
+                  id="company"
+                  name="company"
                     type="text"
                     autoComplete="organization"
-                    required
+                  required
                     value={formData.company}
                     onChange={handleChange}
                     className="w-full h-12 px-4 rounded-xl border border-slate-300 focus:border-[#0A52A1] focus:ring-2 focus:ring-[#0A52A1]/20 outline-none transition-all text-base"
-                    placeholder="VD: Công ty TNHH Xây dựng ABC"
-                  />
-                </div>
+                  placeholder="VD: Công ty TNHH Xây dựng ABC"
+                />
+              </div>
                 <div>
-                  <label
-                    htmlFor="contact"
+                <label
+                  htmlFor="contact"
                     className="block text-sm font-medium text-slate-700 mb-2"
-                  >
-                    Người liên hệ *
-                  </label>
-                  <input
-                    id="contact"
-                    name="contact"
+                >
+                  Người liên hệ *
+                </label>
+                <input
+                  id="contact"
+                  name="contact"
                     type="text"
                     autoComplete="name"
-                    required
+                  required
                     value={formData.contact}
                     onChange={handleChange}
                     className="w-full h-12 px-4 rounded-xl border border-slate-300 focus:border-[#0A52A1] focus:ring-2 focus:ring-[#0A52A1]/20 outline-none transition-all text-base"
-                    placeholder="Họ và tên"
-                  />
-                </div>
+                  placeholder="Họ và tên"
+                />
               </div>
+            </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label
-                    htmlFor="email"
+                <label
+                  htmlFor="email"
                     className="block text-sm font-medium text-slate-700 mb-2"
-                  >
-                    Email *
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
+                >
+                  Email *
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
                     autoComplete="email"
-                    required
+                  required
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full h-12 px-4 rounded-xl border border-slate-300 focus:border-[#0A52A1] focus:ring-2 focus:ring-[#0A52A1]/20 outline-none transition-all text-base"
-                    placeholder="sales@company.vn"
-                  />
-                </div>
+                  placeholder="sales@company.vn"
+                />
+              </div>
                 <div>
-                  <label
-                    htmlFor="phone"
+                <label
+                  htmlFor="phone"
                     className="block text-sm font-medium text-slate-700 mb-2"
-                  >
-                    Số điện thoại *
-                  </label>
-                  <input
-                    id="phone"
-                    name="phone"
+                >
+                  Số điện thoại *
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
                     type="tel"
                     autoComplete="tel"
-                    required
+                  required
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full h-12 px-4 rounded-xl border border-slate-300 focus:border-[#0A52A1] focus:ring-2 focus:ring-[#0A52A1]/20 outline-none transition-all text-base"
-                    placeholder="VD: 0901 234 567"
-                  />
-                </div>
+                  placeholder="VD: 0901 234 567"
+                />
               </div>
+            </div>
 
               <div>
-                <label
-                  htmlFor="product"
+              <label
+                htmlFor="product"
                   className="block text-sm font-medium text-slate-700 mb-2"
-                >
-                  Mã sản phẩm quan tâm
-                </label>
-                <input
-                  id="product"
-                  name="product"
+              >
+                Mã sản phẩm quan tâm
+              </label>
+              <input
+                id="product"
+                name="product"
                   type="text"
                   autoComplete="off"
                   value={formData.product}
                   onChange={handleChange}
                   className="w-full h-12 px-4 rounded-xl border border-slate-300 focus:border-[#0A52A1] focus:ring-2 focus:ring-[#0A52A1]/20 outline-none transition-all text-base"
                   placeholder="VD: MÃ 07 (có thể nhập nhiều mã, cách nhau bởi dấu phẩy)"
-                />
-              </div>
+              />
+            </div>
 
               <div>
-                <label
-                  htmlFor="message"
+              <label
+                htmlFor="message"
                   className="block text-sm font-medium text-slate-700 mb-2"
-                >
-                  Nhu cầu dự án / ghi chú *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
+              >
+                Nhu cầu dự án / ghi chú *
+              </label>
+              <textarea
+                id="message"
+                name="message"
                   autoComplete="off"
-                  required
+                required
                   rows={5}
                   value={formData.message}
                   onChange={handleChange}
                   className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-[#0A52A1] focus:ring-2 focus:ring-[#0A52A1]/20 outline-none transition-all text-base resize-none"
-                  placeholder="VD: Dự án căn hộ 500 căn, cần chậu rửa 1 hố cho bếp chính, tiến độ giao hàng Q3/2025..."
-                />
-              </div>
+                placeholder="VD: Dự án căn hộ 500 căn, cần chậu rửa 1 hố cho bếp chính, tiến độ giao hàng Q3/2025..."
+              />
+            </div>
 
               <p className="text-xs text-slate-500">
-                * Thông tin chỉ được sử dụng để liên hệ tư vấn & gửi báo giá, không
-                chia sẻ cho bên thứ ba.
-              </p>
+              * Thông tin chỉ được sử dụng để liên hệ tư vấn & gửi báo giá, không
+              chia sẻ cho bên thứ ba.
+            </p>
 
-              <button
-                type="submit"
+            <button
+              type="submit"
                 disabled={isSubmitting}
                 className="w-full h-12 rounded-xl bg-[#0A52A1] text-white font-semibold text-base shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
               >
@@ -332,9 +332,9 @@ function ContactForm() {
                 ) : (
                   "Gửi yêu cầu tư vấn"
                 )}
-              </button>
-            </form>
-          </section>
+            </button>
+          </form>
+        </section>
 
           {/* Right: Contact Info & Services */}
           <aside className="space-y-6">
@@ -342,7 +342,7 @@ function ContactForm() {
             <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-md">
               <h2 className="text-xl font-semibold text-slate-900 mb-5">
                 Thông tin liên hệ
-              </h2>
+            </h2>
               <dl className="space-y-4">
                 <div>
                   <dt className="text-xs font-medium text-slate-500 mb-1">Công ty</dt>
@@ -356,18 +356,18 @@ function ContactForm() {
                     19 Đường Số 1, Phường Phú Thuận, Quận 7, TP. Hồ Chí Minh
                   </dd>
                 </div>
-                <div>
+              <div>
                   <dt className="text-xs font-medium text-slate-500 mb-1">Email</dt>
                   <dd className="text-sm">
                     <a
                       href="mailto:sales@kabalon.vn"
                       className="font-semibold text-[#0A52A1] hover:underline"
                     >
-                      sales@kabalon.vn
+                  sales@kabalon.vn
                     </a>
-                  </dd>
-                </div>
-                <div>
+                </dd>
+              </div>
+              <div>
                   <dt className="text-xs font-medium text-slate-500 mb-1">Hotline</dt>
                   <dd className="text-sm">
                     <a
@@ -377,15 +377,15 @@ function ContactForm() {
                       0981 675 008
                     </a>
                   </dd>
-                </div>
-                <div>
+              </div>
+              <div>
                   <dt className="text-xs font-medium text-slate-500 mb-1">Thời gian làm việc</dt>
                   <dd className="text-sm text-slate-700">
                     Thứ 2 – Thứ 6, 8:30 – 17:30 (GMT+7)
                   </dd>
-                </div>
-              </dl>
-            </div>
+              </div>
+            </dl>
+          </div>
 
             {/* Zalo QR Card */}
             <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-md text-center">
@@ -418,7 +418,7 @@ function ContactForm() {
             <div className="rounded-xl border border-blue-200 bg-blue-50 p-6 shadow-md">
               <h2 className="text-xl font-semibold text-slate-900 mb-4">
                 Dịch vụ hỗ trợ đối tác B2B
-              </h2>
+            </h2>
               <ul className="space-y-3 text-sm text-slate-700">
                 <li className="flex items-start gap-3">
                   <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#0A52A1]" />
@@ -436,11 +436,11 @@ function ContactForm() {
                   <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#0A52A1]" />
                   <span>Hỗ trợ mẫu test và phương án logistics tối ưu</span>
                 </li>
-              </ul>
-            </div>
-          </aside>
-        </div>
+            </ul>
+          </div>
+        </aside>
       </div>
+    </div>
     </div>
   );
 }

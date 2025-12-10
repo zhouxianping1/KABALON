@@ -53,6 +53,8 @@ li {
   isolation: isolate;
   /* 确保按钮可见 */
   will-change: transform;
+  /* 确保波纹效果可以溢出显示 */
+  overflow: visible !important;
 }
 
 @media (min-width: 640px) {
@@ -62,83 +64,110 @@ li {
   }
 }
 
-/* Zalo Widget 位置控制 - 固定在右下角，与左下角电话按钮完全对称分开 */
-/* 使用纯 CSS 控制，避免 JavaScript 操作触发 SDK 内部序列化 */
+/* Zalo Widget 基础样式 - 交给 SDK 自己控制，只确保可见性和交互性 */
 .zalo-chat-widget {
-  position: fixed !important;
-  bottom: 16px !important;
-  right: 16px !important;
-  left: auto !important;
-  top: auto !important;
-  margin: 0 !important;
-  z-index: 99999 !important;
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+  /* 让 SDK 完全控制样式，不添加强制定位 */
+  display: block;
+  pointer-events: auto;
   /* 确保移动端触摸友好 */
   touch-action: manipulation;
-  /* 确保 Widget 按钮足够大 */
-  min-width: 48px !important;
-  min-height: 48px !important;
-  /* 确保在最上层 */
-  pointer-events: auto !important;
-  /* 确保不被任何元素遮挡 */
-  transform: translateZ(0) !important;
-  -webkit-transform: translateZ(0) !important;
-  /* 防止 SDK 覆盖样式 */
-  isolation: isolate;
+}
+
+/* 电话按钮波纹扩散动画 */
+@keyframes phoneRipple {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.75);
+    opacity: 0;
+  }
+}
+
+/* 电话图标抖动动画 - 一长3短抖动效果 */
+@keyframes phoneShake {
+  0% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(10deg);
+  }
+  30% {
+    transform: rotate(-10deg);
+  }
+  45% {
+    transform: rotate(0deg);
+  }
+  /* 第一次短抖动 - 快速 */
+  50% {
+    transform: rotate(8deg);
+  }
+  52% {
+    transform: rotate(0deg);
+  }
+  /* 第二次短抖动 - 快速 */
+  54% {
+    transform: rotate(-8deg);
+  }
+  56% {
+    transform: rotate(0deg);
+  }
+  /* 第三次短抖动 - 快速 */
+  58% {
+    transform: rotate(8deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* 电话按钮图标容器 - 相对定位用于波纹效果 */
+.phone-button-icon-wrapper {
+  position: relative;
+  overflow: visible !important;
+}
+
+/* 波纹效果层 */
+.phone-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid #ef4444;
+  pointer-events: none;
+  z-index: 0;
+  transform: translate(-50%, -50%) scale(1);
+  transform-origin: center center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 三个波纹层，延迟不同以实现连续波纹效果 */
+.phone-ripple-1 {
+  animation: phoneRipple 2s ease-out infinite;
+  animation-delay: 0s;
+}
+
+.phone-ripple-2 {
+  animation: phoneRipple 2s ease-out infinite;
+  animation-delay: 0.67s;
+}
+
+.phone-ripple-3 {
+  animation: phoneRipple 2s ease-out infinite;
+  animation-delay: 1.33s;
+}
+
+/* 电话图标抖动动画 */
+.phone-icon-shake {
+  animation: phoneShake 1s ease-in-out infinite;
+  transform-origin: center;
   will-change: transform;
-}
-
-/* 确保 Zalo Widget 内的按钮可见 */
-.zalo-chat-widget iframe,
-.zalo-chat-widget > div {
-  pointer-events: auto !important;
-}
-
-/* 移动端优化 */
-@media (max-width: 639px) {
-  .zalo-chat-widget {
-    bottom: 16px !important;
-    right: 16px !important;
-    /* 放大移动端 Zalo 图标 - 使用 !important 确保优先级 */
-    width: 72px !important;
-    height: 72px !important;
-    min-width: 72px !important;
-    min-height: 72px !important;
-    max-width: 72px !important;
-    max-height: 72px !important;
-  }
-  
-  /* 确保 Zalo Widget 内的所有元素在移动端都是 72px */
-  .zalo-chat-widget > *,
-  .zalo-chat-widget iframe,
-  .zalo-chat-widget > div > * {
-    width: 72px !important;
-    height: 72px !important;
-    min-width: 72px !important;
-    min-height: 72px !important;
-    max-width: 72px !important;
-    max-height: 72px !important;
-    pointer-events: auto !important;
-  }
-  
-  /* 特别针对 iframe */
-  .zalo-chat-widget iframe {
-    width: 72px !important;
-    height: 72px !important;
-    min-width: 72px !important;
-    min-height: 72px !important;
-    max-width: 72px !important;
-    max-height: 72px !important;
-    border: none !important;
-  }
-}
-
-/* 桌面端 */
-@media (min-width: 640px) {
-  .zalo-chat-widget {
-    bottom: 24px !important;
-    right: 24px !important;
-  }
 }

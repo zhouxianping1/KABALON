@@ -2,25 +2,50 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
-export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+interface NavbarProps {
+  alwaysOpaque?: boolean;
+}
+
+export function Navbar({ alwaysOpaque = false }: NavbarProps) {
+  const [isScrolled, setIsScrolled] = useState(alwaysOpaque);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  
+  // 如果不在首页，锚点链接应该指向首页的锚点
+  const isHomePage = pathname === "/";
+  const linkPrefix = isHomePage ? "" : "/";
 
   useEffect(() => {
-    const handleScroll = () => {
+    if (alwaysOpaque) {
+      setIsScrolled(true);
+      return;
+    }
+    
+    // 立即检查当前滚动位置
+    const checkScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+    
+    // 初始化时立即检查
+    checkScroll();
+    
+    // 监听滚动事件
+    const handleScroll = () => {
+      checkScroll();
+    };
+    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [alwaysOpaque, pathname]);
 
   const navLinks = [
     { href: "/", label: "Trang chủ" },
     { href: "/products", label: "Sản phẩm" },
-    { href: "#about", label: "Về chúng tôi" },
-    { href: "#process", label: "Quy trình hợp tác" },
-    { href: "#contact", label: "Liên hệ" },
+    { href: `${linkPrefix}#about`, label: "Về chúng tôi" },
+    { href: `${linkPrefix}#process`, label: "Quy trình hợp tác" },
+    { href: `${linkPrefix}#contact`, label: "Liên hệ" },
   ];
 
   return (
@@ -115,5 +140,7 @@ export function Navbar() {
     </nav>
   );
 }
+
+
 
 

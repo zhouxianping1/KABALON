@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/data/products";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 type ProductDetailPageProps = {
   params: Promise<{
@@ -18,7 +20,9 @@ export default async function ProductDetailPage(props: ProductDetailPageProps) {
   }
 
   return (
-    <div className="py-12 sm:py-16 lg:py-20">
+    <>
+      <Navbar alwaysOpaque />
+      <div className="pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb Navigation */}
         <nav
@@ -211,7 +215,9 @@ export default async function ProductDetailPage(props: ProductDetailPageProps) {
           </Link>
         </div>
       </div>
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 }
 

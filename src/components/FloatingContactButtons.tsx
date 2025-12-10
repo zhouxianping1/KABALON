@@ -27,7 +27,9 @@ export function FloatingContactButtons() {
       >
         {/* 圆形电话图标按钮 - 移动端至少 48x48px 以确保触摸友好 */}
         <div
+          className="phone-button-icon-wrapper"
           style={{
+            position: 'relative',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -41,11 +43,18 @@ export function FloatingContactButtons() {
             boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2)',
             border: '2px solid white',
             flexShrink: 0,
+            overflow: 'visible',
           }}
         >
+          {/* 波纹效果层 */}
+          <span className="phone-ripple phone-ripple-1"></span>
+          <span className="phone-ripple phone-ripple-2"></span>
+          <span className="phone-ripple phone-ripple-3"></span>
+          
           <svg
+            className="phone-icon-shake"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ width: '28px', height: '28px', flexShrink: 0 }}
+            style={{ width: '28px', height: '28px', flexShrink: 0, position: 'relative', zIndex: 1 }}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
