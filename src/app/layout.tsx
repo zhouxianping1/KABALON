@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import FloatingContactButtons from "@/components/FloatingContactButtons";
+import { FloatingContactButtons } from "@/components/FloatingContactButtons";
 import ZaloChatWidget from "@/components/ZaloChatWidget";
 
 export const metadata: Metadata = {
