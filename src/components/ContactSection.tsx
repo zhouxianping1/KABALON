@@ -75,7 +75,7 @@ export function ContactSection() {
           // 网页版 Zalo：打开聊天页面，消息已在剪贴板中
           window.open(`https://zalo.me/${zaloPhone}`, '_blank');
         }, 2000);
-      } catch (error) {
+      } catch (_error) {
         // 如果深层链接失败，打开网页版
         window.open(`https://zalo.me/${zaloPhone}`, '_blank');
       }
