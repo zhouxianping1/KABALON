@@ -29,65 +29,140 @@ export function ContactSection() {
     }
   };
 
+  // 格式化消息内容
+  const formatMessage = (): string => {
+    let message = "Xin chào! Tôi quan tâm đến sản phẩm của bạn.\n\n";
+    message += "Thông tin liên hệ:\n";
+    message += `- Họ và tên: ${formData.name}\n`;
+    message += `- Số điện thoại: ${formData.phone}\n`;
+    if (formData.message.trim()) {
+      message += `\nNội dung: ${formData.message}`;
+    }
+    return message;
+  };
+
+  // 检测是否为移动设备
+  const isMobileDevice = (): boolean => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    ) || window.innerWidth < 768;
+  };
+
+  // 自动填写并发送 Zalo 消息
+  const sendToZalo = async (message: string) => {
+    const zaloPhone = "0981675008";
+    
+    try {
+      // 先复制消息到剪贴板（作为备用方案）
+      await navigator.clipboard.writeText(message);
+    } catch (error) {
+      console.error("Failed to copy to clipboard:", error);
+    }
+
+    // 检测设备类型并打开 Zalo
+    if (isMobileDevice()) {
+      // 移动端：使用 Zalo 应用深层链接，尝试自动填写消息
+      // 注意：Zalo 应用可能不支持自动填写，但会尝试打开聊天窗口
+      const encodedMessage = encodeURIComponent(message);
+      
+      // 方法1：尝试使用 zalo:// scheme（如果支持）
+      try {
+        // 尝试打开 Zalo 应用并传递消息
+        window.location.href = `zalo://chat?phone=${zaloPhone}&message=${encodedMessage}`;
+        
+        // 备用：如果应用未安装或打开失败，2秒后打开网页版
+        setTimeout(() => {
+          // 网页版 Zalo：打开聊天页面，消息已在剪贴板中
+          window.open(`https://zalo.me/${zaloPhone}`, '_blank');
+        }, 2000);
+      } catch (error) {
+        // 如果深层链接失败，打开网页版
+        window.open(`https://zalo.me/${zaloPhone}`, '_blank');
+      }
+    } else {
+      // 桌面端：打开 Zalo 网页版
+      // 使用 Zalo 网页版的 URL 参数（如果支持）
+      const encodedMessage = encodeURIComponent(message);
+      const zaloUrl = `https://zalo.me/${zaloPhone}?message=${encodedMessage}`;
+      
+      // 打开新窗口
+      const zaloWindow = window.open(zaloUrl, '_blank', 'noopener,noreferrer');
+      
+      // 等待 Zalo 页面加载后，尝试自动填写
+      if (zaloWindow) {
+        // 注意：由于跨域限制，无法直接操作 Zalo 页面的 DOM
+        // 但消息已在剪贴板中，用户可以粘贴
+        
+        // 尝试在页面加载后发送键盘事件（如果可能）
+        setTimeout(() => {
+          try {
+            // 由于跨域限制，这通常不会工作
+            // 但我们可以尝试通过 postMessage 或其他方法
+            console.log("Zalo window opened, message is in clipboard");
+          } catch (error) {
+            console.error("Cannot interact with Zalo window due to CORS:", error);
+          }
+        }, 1000);
+      }
+    }
+    
+    // 返回提示信息
+    return {
+      success: true,
+      message: "Đã mở Zalo! Tin nhắn đã được sao chép vào bộ nhớ tạm. Vui lòng dán tin nhắn vào Zalo (Ctrl+V / Cmd+V) và gửi đi.",
+    };
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // 验证必填字段
+    if (!formData.name.trim() || !formData.phone.trim()) {
+      setSubmitStatus({
+        type: "error",
+        message: "Vui lòng điền đầy đủ họ tên và số điện thoại.",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
 
     try {
-      // 准备发送的数据（映射到联系页面的字段格式）
-      const submitData = {
-        company: "", // 首页表单没有公司名字段，留空
-        contact: formData.name, // name → contact
-        email: "", // 首页表单没有邮箱字段，留空
-        phone: formData.phone, // phone → phone
-        product: "", // 首页表单没有产品代码字段，留空
-        message: formData.message, // message → message
-      };
-
-      // 调试日志（开发环境）
-      if (process.env.NODE_ENV === "development") {
-        console.log("Submitting form data:", submitData);
-      }
-
-      // 通过 Next.js API Route 发送数据（避免 CORS 问题）
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(submitData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        // 成功
+      // 格式化消息内容
+      const formattedMessage = formatMessage();
+      
+      // 发送到 Zalo（自动填写并打开）
+      const result = await sendToZalo(formattedMessage);
+      
+      if (result.success) {
+        // 显示成功提示
         setSubmitStatus({
           type: "success",
-          message: "Cảm ơn bạn! Chúng tôi đã nhận được yêu cầu và sẽ liên hệ trong vòng 24 giờ làm việc.",
+          message: result.message || "Đã mở Zalo! Tin nhắn đã được sao chép. Vui lòng dán tin nhắn vào Zalo (Ctrl+V / Cmd+V) và gửi đi.",
         });
+        
         // 清空表单
         setFormData({
           name: "",
           phone: "",
           message: "",
         });
+        
         // 滚动到顶部显示成功消息
         const section = document.getElementById("contact");
         if (section) {
           section.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       } else {
-        // 服务器错误
-        throw new Error(data.error || `Server error: ${response.status}`);
+        throw new Error("Failed to open Zalo");
       }
     } catch (error) {
-      // 网络错误或其他错误
-      console.error("Form submission error:", error);
+      // 错误处理
+      console.error("Error sending to Zalo:", error);
       setSubmitStatus({
         type: "error",
-        message: "Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại hoặc liên hệ trực tiếp qua email: sales@kabalon.vn",
+        message: "Không thể mở Zalo. Vui lòng thử lại hoặc liên hệ trực tiếp: https://zalo.me/0981675008",
       });
     } finally {
       setIsSubmitting(false);

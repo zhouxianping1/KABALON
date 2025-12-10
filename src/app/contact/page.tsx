@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 function ContactForm() {
   const searchParams = useSearchParams();
@@ -109,8 +111,10 @@ function ContactForm() {
   };
 
   return (
-    <div className="py-12 sm:py-16 lg:py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <>
+      <Navbar alwaysOpaque />
+      <div className="pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <header className="mb-8 sm:mb-12 text-center sm:text-left">
           <p className="text-sm font-semibold uppercase tracking-wider text-[#0A52A1] mb-2">
@@ -440,8 +444,10 @@ function ContactForm() {
           </div>
         </aside>
       </div>
-    </div>
-    </div>
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 }
 
